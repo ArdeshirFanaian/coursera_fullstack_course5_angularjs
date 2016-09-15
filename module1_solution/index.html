@@ -11,19 +11,21 @@
     </style>
   </head>
 <body>
-   <div class="container">
+   <div ng-controller='LunchCheckController' class="container">
      <h1>Lunch Checker</h1>
 
-         <div ng-controller='LunchCheckController' class="form-group">
-             <input id="lunch-menu" type="text"
+         <div class="form-group">
+             <input ng-model="name" id="lunch-menu" type="text"
              placeholder="list comma separated dishes you usually have for lunch"
              class="form-control">
          </div>
          <div class="form-group">
-             <button ng-click="" class="btn btn-default">Check If Too Much</button>
+             <button ng-click="upper()" class="btn btn-default">Check If Too Much</button>
          </div>
-         <div class="form-group message">
+         <div ng-model="name" class="form-group message">
            <!-- Your message can go here. -->
+           {{name}}
+           ola
          </div>
    </div>
 
