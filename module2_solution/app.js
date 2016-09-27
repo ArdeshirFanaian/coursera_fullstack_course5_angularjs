@@ -12,19 +12,20 @@ function ToBuyShoppingController(ShoppingListCheckOffService) {
 
   showToBuyList.items = ShoppingListCheckOffService.getToBuyItems();
 
+  showToBuyList.buyItem = function (itemIndex) {
+
+    ShoppingListCheckOffService.buyItem(itemIndex);
+
+  }
+
 }
 
 AlreadyBoughtShoppingController.$inject = ['ShoppingListCheckOffService'];
 function AlreadyBoughtShoppingController(ShoppingListCheckOffService) {
-  var itemAdder = this;
+  var showBoughtList = this;
 
-  // itemAdder.itemName = "";
-  // itemAdder.itemQuantity = "";
-  //
-  // itemAdder.addItem = function () {
-  //   ShoppingListService.addItem(itemAdder.itemName, itemAdder.itemQuantity);
-  //
-  // }
+  showBoughtList.items = ShoppingListCheckOffService.getBoughtItems();
+
 }
 function ShoppingListCheckOffService() {
   var service = this;
@@ -35,7 +36,7 @@ function ShoppingListCheckOffService() {
     { name: "cookies", quantity: 10 },
     { name: "yogurt", quantity: 3 },
     { name: "soy sauce", quantity: 1 },
-    { name: "spaghetty", quantity: 2 }
+    { name: "spaghety", quantity: 2 }
   ];
 
   // List of bought items
@@ -49,6 +50,10 @@ function ShoppingListCheckOffService() {
     return boughtItems;
   };
 
+  service.buyItem = function (itemIndex){
+    boughtItems.push(buyItems[itemIndex]);
+    buyItems.splice(itemIndex,1);
+  }
 
 }
 
