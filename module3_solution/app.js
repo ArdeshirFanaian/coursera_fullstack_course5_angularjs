@@ -54,7 +54,7 @@ function MenuSearchService($http, ApiBasePath) {
     }).then(function (result) {
         // process result and only keep items that match
         var foundItems = []
-        foundItems = result.data;
+        foundItems = result.data.menu_items;
 
         // return processed items
         return foundItems;
