@@ -13,10 +13,7 @@ function FoundItemsDirective() {
     scope: {
       items: '<',
       onRemove: '&'
-    },
-    controller: NarrowItDownController,
-    controllerAs: 'list',
-    bindToController: true,
+    }
   };
 
   return ddo;
@@ -27,14 +24,14 @@ function NarrowItDownController(MenuSearchService) {
   var ctrl = this;
 
   ctrl.searchTerm ='';
-  ctrl.found = '';
+  ctrl.found = []
 
   ctrl.getItems = function () {
     var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
     promise.then(function (response) {
       ctrl.found = response;
       console.log(ctrl.found);
-      console.log(ctrl.found);
+      console.log(ctrl.searchTerm);
     })
     .catch(function (error){
       console.log('something went wrong.' + error);
