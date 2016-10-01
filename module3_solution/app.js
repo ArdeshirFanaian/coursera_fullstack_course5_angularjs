@@ -12,7 +12,8 @@ function FoundItemsDirective() {
     templateUrl: 'list.html',
     scope: {
       items: '<',
-      onRemove: '&'
+      onRemove: '&',
+      showError:'<'
     },
     controller: NarrowItDownController,
     controllerAs: 'list',
@@ -28,21 +29,29 @@ function NarrowItDownController(MenuSearchService) {
 
   ctrl.searchTerm ='';
   ctrl.found = []
+  ctrl.showError = false;
 
   ctrl.getItems = function () {
     var promise = MenuSearchService.getMatchedMenuItems(ctrl.searchTerm);
     promise.then(function (response) {
-      ctrl.found = response;
-      console.log(ctrl.found);
-      console.log(ctrl.searchTerm);
+      if (response.length !== 0) {
+        ctrl.showError = false;
+        ctrl.found = response;
+      }else {
+        ctrl.showError =true;
+      }
     })
     .catch(function (error){
       console.log('something went wrong.' + error);
+      ctrl.showError =true;
     })
+  };
+  ctrl.removeItem = function (itemIndex) {
+    ctrl.found.splice(itemIndex, 1);
   };
 }
 
-MenuSearchService.$inject = ['$http', 'ApiBasePath']
+MenuSearchService.$inject = ['$http', 'ApiBasePath','$filter']
 function MenuSearchService($http, ApiBasePath) {
   var service = this;
 
@@ -53,9 +62,15 @@ function MenuSearchService($http, ApiBasePath) {
 
     }).then(function (result) {
         // process result and only keep items that match
-        var foundItems = []
-        foundItems = result.data.menu_items;
-
+        var foundItemsInitial = result.data.menu_items;
+        var foundItems = [];
+        if (searchTerm.length !== 0){
+          for (var i = 0; i < foundItemsInitial.length; i++) {
+            if (foundItemsInitial[i].description.toLowerCase().indexOf(searchTerm.toLowerCase()) !==-1){
+              foundItems.push(foundItemsInitial[i]);
+            }
+          }
+        }
         // return processed items
         return foundItems;
     });
