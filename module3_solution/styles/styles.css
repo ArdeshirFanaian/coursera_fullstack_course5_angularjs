@@ -5,6 +5,9 @@ input[type="text"] {
   width: 200px;
   float: left;
 }
+button{
+  margin-left: 5px;
+}
 .narrow-button {
   float: left;
   margin-left: 10px;
@@ -39,7 +42,7 @@ input[type="text"] {
 }
 .description{
   float: left;
-  
+
 }
 @-webkit-keyframes load8 {
   0% {
