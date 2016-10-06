@@ -7,7 +7,7 @@ angular.module('data')
 
 CategoriesController.$inject = ['MenuDataService', 'items'];
 function CategoriesController(MenuDataService, items) {
-  console.console.log(items);
+  console.log(items);
   var mainList = this;
   mainList.items = items;
 }

@@ -16,6 +16,7 @@ function MenuDataService($http) {
   var categories = [];
 
   service.getAllCategories = function (){
+    console.console.log('service');
     return $http({
       method: "GET",
       url: (ApiBasePath + 'categories.json')
