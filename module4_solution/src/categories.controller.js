@@ -11,6 +11,7 @@ function CategoriesController(items) {
   console.log(items);
   var mainList = this;
   mainList.items = items.data;
+  console.log(mainList.items);
 }
 
 })();
