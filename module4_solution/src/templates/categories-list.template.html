@@ -1,6 +1,6 @@
-<h3>categories list template</h3>
 <ul>
-  <li ng-repeat="item in $ctrl.items">
-    {{ item.name }}
+  <li ng-repeat="item in $ctrl.items"
+  ui-sref="categoriesList.menuItems({catShortName: item.short_name})">
+    {{ item.name }} {{item.short_name}}
   </li>
 </ul>

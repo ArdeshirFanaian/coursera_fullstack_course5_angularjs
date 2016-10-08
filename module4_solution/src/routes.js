@@ -25,11 +25,21 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     controller: 'CategoriesController as categoriesList',
     resolve: {
       items: ['MenuDataService', function (MenuDataService) {
-        // console.log('service in component controller');
-        // var promise = MenuDataService.getAllCategories();
-        // console.log(promise);
         return MenuDataService.getAllCategories();
       }]
+    }
+  })
+  .state('categoriesList.menuItems', {
+    url: '/menu-items/{catShortName}',
+    templateUrl: 'src/templates/items.template.html',
+    controller: 'ItemDetailController as itemDetail',
+    resolve: {
+      items: ['$stateParams', 'MenuDataService',
+            function ($stateParams, MenuDataService) {
+              console.log(MenuDataService.getItemsForCategory($stateParams.catShortName));
+              console.log('shortname in routes ' + $stateParams.catShortName);
+              return MenuDataService.getItemsForCategory($stateParams.catShortName);
+            }]
     }
   });
 
